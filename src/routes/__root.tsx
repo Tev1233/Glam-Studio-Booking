@@ -72,14 +72,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Glam Studio — Hair Salon in Chinhoyi, Zimbabwe" },
+      { name: "description", content: "Braids, weaves, relaxers, natural hair and locs in Chinhoyi. Book on WhatsApp." },
+      { property: "og:title", content: "Glam Studio — Your hair, your crown." },
+      { property: "og:description", content: "Luxury hair care in Chinhoyi. Braids, weaves, naturals and locs." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { property: "og:site_name", content: "Glam Studio" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "theme-color", content: "#0D0D0D" },
     ],
     links: [
       {
