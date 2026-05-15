@@ -1,0 +1,2 @@
+ALTER TYPE product_type ADD VALUE IF NOT EXISTS 'Shampoo';
+ALTER TYPE product_type ADD VALUE IF NOT EXISTS 'HairGel';

@@ -19,7 +19,7 @@ export const Route = createFileRoute("/_admin/admin/products")({
 const empty = {
   id: undefined as string | undefined,
   name: "",
-  type: "Weave" as "Weave" | "Braid",
+  type: "Weave" as "Weave" | "Braid" | "Shampoo" | "HairGel",
   color: "Natural Black",
   color_hex: "#0d0d0d",
   length_inches: null as number | null,
@@ -136,6 +136,8 @@ function AdminProducts() {
         >
           <option value="Weave">Weave</option>
           <option value="Braid">Braid</option>
+          <option value="Shampoo">Shampoo</option>
+          <option value="HairGel">Hair Gel</option>
         </select>
         <select
           value={form.color}
