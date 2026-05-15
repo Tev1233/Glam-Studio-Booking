@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as ProductsRouteImport } from './routes/products'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as BookRouteImport } from './routes/book'
@@ -35,6 +36,11 @@ const ShopRoute = ShopRouteImport.update({
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsRoute = ProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -88,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/book': typeof BookRoute
   '/gallery': typeof GalleryRoute
   '/login': typeof LoginRoute
+  '/products': typeof ProductsRoute
   '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -101,6 +108,7 @@ export interface FileRoutesByTo {
   '/book': typeof BookRoute
   '/gallery': typeof GalleryRoute
   '/login': typeof LoginRoute
+  '/products': typeof ProductsRoute
   '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -116,6 +124,7 @@ export interface FileRoutesById {
   '/book': typeof BookRoute
   '/gallery': typeof GalleryRoute
   '/login': typeof LoginRoute
+  '/products': typeof ProductsRoute
   '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
     | '/book'
     | '/gallery'
     | '/login'
+    | '/products'
     | '/services'
     | '/shop'
     | '/sitemap.xml'
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
     | '/book'
     | '/gallery'
     | '/login'
+    | '/products'
     | '/services'
     | '/shop'
     | '/sitemap.xml'
@@ -158,6 +169,7 @@ export interface FileRouteTypes {
     | '/book'
     | '/gallery'
     | '/login'
+    | '/products'
     | '/services'
     | '/shop'
     | '/sitemap.xml'
@@ -173,6 +185,7 @@ export interface RootRouteChildren {
   BookRoute: typeof BookRoute
   GalleryRoute: typeof GalleryRoute
   LoginRoute: typeof LoginRoute
+  ProductsRoute: typeof ProductsRoute
   ServicesRoute: typeof ServicesRoute
   ShopRoute: typeof ShopRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -199,6 +212,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products': {
+      id: '/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -298,6 +318,7 @@ const rootRouteChildren: RootRouteChildren = {
   BookRoute: BookRoute,
   GalleryRoute: GalleryRoute,
   LoginRoute: LoginRoute,
+  ProductsRoute: ProductsRoute,
   ServicesRoute: ServicesRoute,
   ShopRoute: ShopRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
@@ -305,3 +326,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
