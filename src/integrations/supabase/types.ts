@@ -149,7 +149,7 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "user"
-      product_type: "Weave" | "Braid"
+      product_type: "Weave" | "Braid" | "Shampoo" | "HairGel"
       style_category: "Braids" | "Weaves" | "Natural" | "Locs" | "Other"
     }
     CompositeTypes: {
@@ -279,7 +279,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "user"],
-      product_type: ["Weave", "Braid"],
+      product_type: ["Weave", "Braid", "Shampoo", "HairGel"],
       style_category: ["Braids", "Weaves", "Natural", "Locs", "Other"],
     },
   },
