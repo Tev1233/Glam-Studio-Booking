@@ -26,7 +26,7 @@ const styleSchema = z.object({
 const productSchema = z.object({
   id: z.string().uuid().optional(),
   name: z.string().trim().min(1).max(120),
-  type: z.enum(["Weave", "Braid"]),
+  type: z.enum(["Weave", "Braid", "Shampoo", "HairGel"]),
   color: z.string().trim().min(1).max(60),
   color_hex: z.string().trim().regex(/^#?[0-9a-fA-F]{3,8}$/).optional().nullable(),
   length_inches: z.number().int().min(0).max(60).optional().nullable(),
