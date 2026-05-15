@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ShopRouteImport } from './routes/shop'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as GalleryRouteImport } from './routes/gallery'
@@ -18,10 +19,17 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdminRouteImport } from './routes/_admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminAdminRouteImport } from './routes/_admin.admin'
+import { Route as AdminAdminStylesRouteImport } from './routes/_admin.admin.styles'
+import { Route as AdminAdminProductsRouteImport } from './routes/_admin.admin.products'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesRoute = ServicesRouteImport.update({
@@ -63,6 +71,16 @@ const AdminAdminRoute = AdminAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAdminStylesRoute = AdminAdminStylesRouteImport.update({
+  id: '/styles',
+  path: '/styles',
+  getParentRoute: () => AdminAdminRoute,
+} as any)
+const AdminAdminProductsRoute = AdminAdminProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => AdminAdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -71,8 +89,11 @@ export interface FileRoutesByFullPath {
   '/gallery': typeof GalleryRoute
   '/login': typeof LoginRoute
   '/services': typeof ServicesRoute
+  '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/admin': typeof AdminAdminRoute
+  '/admin': typeof AdminAdminRouteWithChildren
+  '/admin/products': typeof AdminAdminProductsRoute
+  '/admin/styles': typeof AdminAdminStylesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -81,8 +102,11 @@ export interface FileRoutesByTo {
   '/gallery': typeof GalleryRoute
   '/login': typeof LoginRoute
   '/services': typeof ServicesRoute
+  '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/admin': typeof AdminAdminRoute
+  '/admin': typeof AdminAdminRouteWithChildren
+  '/admin/products': typeof AdminAdminProductsRoute
+  '/admin/styles': typeof AdminAdminStylesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -93,8 +117,11 @@ export interface FileRoutesById {
   '/gallery': typeof GalleryRoute
   '/login': typeof LoginRoute
   '/services': typeof ServicesRoute
+  '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/_admin/admin': typeof AdminAdminRoute
+  '/_admin/admin': typeof AdminAdminRouteWithChildren
+  '/_admin/admin/products': typeof AdminAdminProductsRoute
+  '/_admin/admin/styles': typeof AdminAdminStylesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -105,8 +132,11 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/login'
     | '/services'
+    | '/shop'
     | '/sitemap.xml'
     | '/admin'
+    | '/admin/products'
+    | '/admin/styles'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -115,8 +145,11 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/login'
     | '/services'
+    | '/shop'
     | '/sitemap.xml'
     | '/admin'
+    | '/admin/products'
+    | '/admin/styles'
   id:
     | '__root__'
     | '/'
@@ -126,8 +159,11 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/login'
     | '/services'
+    | '/shop'
     | '/sitemap.xml'
     | '/_admin/admin'
+    | '/_admin/admin/products'
+    | '/_admin/admin/styles'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -138,6 +174,7 @@ export interface RootRouteChildren {
   GalleryRoute: typeof GalleryRoute
   LoginRoute: typeof LoginRoute
   ServicesRoute: typeof ServicesRoute
+  ShopRoute: typeof ShopRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
@@ -148,6 +185,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services': {
@@ -206,15 +250,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/_admin/admin/styles': {
+      id: '/_admin/admin/styles'
+      path: '/styles'
+      fullPath: '/admin/styles'
+      preLoaderRoute: typeof AdminAdminStylesRouteImport
+      parentRoute: typeof AdminAdminRoute
+    }
+    '/_admin/admin/products': {
+      id: '/_admin/admin/products'
+      path: '/products'
+      fullPath: '/admin/products'
+      preLoaderRoute: typeof AdminAdminProductsRouteImport
+      parentRoute: typeof AdminAdminRoute
+    }
   }
 }
 
+interface AdminAdminRouteChildren {
+  AdminAdminProductsRoute: typeof AdminAdminProductsRoute
+  AdminAdminStylesRoute: typeof AdminAdminStylesRoute
+}
+
+const AdminAdminRouteChildren: AdminAdminRouteChildren = {
+  AdminAdminProductsRoute: AdminAdminProductsRoute,
+  AdminAdminStylesRoute: AdminAdminStylesRoute,
+}
+
+const AdminAdminRouteWithChildren = AdminAdminRoute._addFileChildren(
+  AdminAdminRouteChildren,
+)
+
 interface AdminRouteChildren {
-  AdminAdminRoute: typeof AdminAdminRoute
+  AdminAdminRoute: typeof AdminAdminRouteWithChildren
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
-  AdminAdminRoute: AdminAdminRoute,
+  AdminAdminRoute: AdminAdminRouteWithChildren,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
@@ -227,8 +299,19 @@ const rootRouteChildren: RootRouteChildren = {
   GalleryRoute: GalleryRoute,
   LoginRoute: LoginRoute,
   ServicesRoute: ServicesRoute,
+  ShopRoute: ShopRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
