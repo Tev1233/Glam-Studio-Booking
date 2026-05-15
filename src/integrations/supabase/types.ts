@@ -14,16 +14,143 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      products: {
+        Row: {
+          active: boolean
+          color: string
+          color_hex: string | null
+          created_at: string
+          id: string
+          image_url: string | null
+          length_inches: number | null
+          name: string
+          price: number
+          stock_qty: number
+          type: Database["public"]["Enums"]["product_type"]
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          color: string
+          color_hex?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          length_inches?: number | null
+          name: string
+          price?: number
+          stock_qty?: number
+          type: Database["public"]["Enums"]["product_type"]
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          color?: string
+          color_hex?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          length_inches?: number | null
+          name?: string
+          price?: number
+          stock_qty?: number
+          type?: Database["public"]["Enums"]["product_type"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
+      styles: {
+        Row: {
+          active: boolean
+          base_price: number
+          category: Database["public"]["Enums"]["style_category"]
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string | null
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          base_price?: number
+          category?: Database["public"]["Enums"]["style_category"]
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          base_price?: number
+          category?: Database["public"]["Enums"]["style_category"]
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
+      product_type: "Weave" | "Braid"
+      style_category: "Braids" | "Weaves" | "Natural" | "Locs" | "Other"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +277,10 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+      product_type: ["Weave", "Braid"],
+      style_category: ["Braids", "Weaves", "Natural", "Locs", "Other"],
+    },
   },
 } as const
