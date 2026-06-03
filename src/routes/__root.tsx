@@ -9,7 +9,6 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
-import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -73,14 +72,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Glam Studio — Hair Salon in Chinhoyi, Zimbabwe" },
-      { name: "description", content: "Braids, weaves, relaxers, natural hair and locs in Chinhoyi. Book on WhatsApp." },
-      { property: "og:title", content: "Glam Studio — Your hair, your crown." },
-      { property: "og:description", content: "Luxury hair care in Chinhoyi. Braids, weaves, naturals and locs." },
+      { title: "Lovable App" },
+      { name: "description", content: "Glam Studio is a luxury salon website for booking hair services and viewing styles." },
+      { property: "og:title", content: "Lovable App" },
+      { property: "og:description", content: "Glam Studio is a luxury salon website for booking hair services and viewing styles." },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Glam Studio" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "theme-color", content: "#0D0D0D" },
+      { name: "twitter:title", content: "Lovable App" },
+      { name: "twitter:description", content: "Glam Studio is a luxury salon website for booking hair services and viewing styles." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/bd9d9e02-73c2-41d5-adf8-1fbca8beec9b/id-preview-c09ebe45--30cf4836-5479-4ded-9891-e4782951af78.lovable.app-1780492151947.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/bd9d9e02-73c2-41d5-adf8-1fbca8beec9b/id-preview-c09ebe45--30cf4836-5479-4ded-9891-e4782951af78.lovable.app-1780492151947.png" },
     ],
     links: [
       {
@@ -115,7 +118,6 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
-      <Toaster position="top-right" richColors />
     </QueryClientProvider>
   );
 }
