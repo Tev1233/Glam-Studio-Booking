@@ -14,12 +14,40 @@ export type Database = {
   }
   public: {
     Tables: {
+      gallery: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       products: {
         Row: {
           active: boolean
           color: string
           color_hex: string | null
           created_at: string
+          description: string | null
           id: string
           image_url: string | null
           length_inches: number | null
@@ -34,6 +62,7 @@ export type Database = {
           color: string
           color_hex?: string | null
           created_at?: string
+          description?: string | null
           id?: string
           image_url?: string | null
           length_inches?: number | null
@@ -48,6 +77,7 @@ export type Database = {
           color?: string
           color_hex?: string | null
           created_at?: string
+          description?: string | null
           id?: string
           image_url?: string | null
           length_inches?: number | null
