@@ -38,6 +38,13 @@ function AdminLayout() {
   });
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  // Non-admin: redirect to homepage as required (hook order matters: keep before early returns)
+  useEffect(() => {
+    if (!isLoading && (error || !data?.isAdmin)) {
+      navigate({ to: "/" });
+    }
+  }, [isLoading, error, data?.isAdmin, navigate]);
+
   const signOut = async () => {
     await supabase.auth.signOut();
     navigate({ to: "/" });
@@ -51,12 +58,6 @@ function AdminLayout() {
     );
   }
 
-  // Non-admin: redirect to homepage as required
-  useEffect(() => {
-    if (!isLoading && (error || !data?.isAdmin)) {
-      navigate({ to: "/" });
-    }
-  }, [isLoading, error, data?.isAdmin, navigate]);
 
   if (error || !data?.isAdmin) {
     return (
