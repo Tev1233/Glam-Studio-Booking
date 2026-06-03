@@ -1,8 +1,8 @@
 export const SALON = {
   name: "Glam Studio",
   tagline: "Your hair, your crown.",
-  phone: "0711376288",
-  whatsapp: "263711376288",
+  phone: "0772223930",
+  whatsapp: "263772223930",
   address: "Grey Building, Chinhoyi, Zimbabwe",
   hoursShort: "Mon–Sat 8AM–6PM · Sunday Closed",
   hours: [
