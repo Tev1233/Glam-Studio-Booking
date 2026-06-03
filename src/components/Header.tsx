@@ -1,6 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { Menu, ShieldCheck, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useAuth } from "@/hooks/use-auth";
+import { useServerFn } from "@tanstack/react-start";
+import { useQuery } from "@tanstack/react-query";
+import { getMyRole } from "@/lib/auth.functions";
 
 const navLinks = [
   { to: "/" as const, label: "Home" },
@@ -13,6 +17,20 @@ const navLinks = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const { user } = useAuth();
+  const fetchRole = useServerFn(getMyRole);
+  const { data: roleData } = useQuery({
+    queryKey: ["my-role", user?.id],
+    queryFn: () => fetchRole(),
+    enabled: !!user,
+    staleTime: 60_000,
+  });
+  const isAdmin = !!roleData?.isAdmin;
+
+  // Suppress hydration mismatch by only rendering admin link after mount
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
@@ -33,6 +51,14 @@ export function Header() {
               {l.label}
             </Link>
           ))}
+          {mounted && isAdmin && (
+            <Link
+              to="/admin"
+              className="inline-flex items-center gap-1 text-sm tracking-wide text-gold hover:opacity-80"
+            >
+              <ShieldCheck size={14} /> Admin
+            </Link>
+          )}
           <Link
             to="/book"
             className="inline-flex h-10 items-center justify-center rounded-sm border border-gold bg-gold px-5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
@@ -73,6 +99,15 @@ export function Header() {
                 {l.label}
               </Link>
             ))}
+            {mounted && isAdmin && (
+              <Link
+                to="/admin"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-2 border-b border-border/40 py-3 text-gold"
+              >
+                <ShieldCheck size={14} /> Admin Dashboard
+              </Link>
+            )}
           </nav>
         </div>
       )}

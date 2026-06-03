@@ -21,7 +21,9 @@ import { Route as AdminRouteImport } from './routes/_admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminAdminRouteImport } from './routes/_admin.admin'
 import { Route as AdminAdminStylesRouteImport } from './routes/_admin.admin.styles'
+import { Route as AdminAdminSettingsRouteImport } from './routes/_admin.admin.settings'
 import { Route as AdminAdminProductsRouteImport } from './routes/_admin.admin.products'
+import { Route as AdminAdminGalleryRouteImport } from './routes/_admin.admin.gallery'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -82,9 +84,19 @@ const AdminAdminStylesRoute = AdminAdminStylesRouteImport.update({
   path: '/styles',
   getParentRoute: () => AdminAdminRoute,
 } as any)
+const AdminAdminSettingsRoute = AdminAdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminAdminRoute,
+} as any)
 const AdminAdminProductsRoute = AdminAdminProductsRouteImport.update({
   id: '/products',
   path: '/products',
+  getParentRoute: () => AdminAdminRoute,
+} as any)
+const AdminAdminGalleryRoute = AdminAdminGalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
   getParentRoute: () => AdminAdminRoute,
 } as any)
 
@@ -99,7 +111,9 @@ export interface FileRoutesByFullPath {
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AdminAdminRouteWithChildren
+  '/admin/gallery': typeof AdminAdminGalleryRoute
   '/admin/products': typeof AdminAdminProductsRoute
+  '/admin/settings': typeof AdminAdminSettingsRoute
   '/admin/styles': typeof AdminAdminStylesRoute
 }
 export interface FileRoutesByTo {
@@ -113,7 +127,9 @@ export interface FileRoutesByTo {
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AdminAdminRouteWithChildren
+  '/admin/gallery': typeof AdminAdminGalleryRoute
   '/admin/products': typeof AdminAdminProductsRoute
+  '/admin/settings': typeof AdminAdminSettingsRoute
   '/admin/styles': typeof AdminAdminStylesRoute
 }
 export interface FileRoutesById {
@@ -129,7 +145,9 @@ export interface FileRoutesById {
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_admin/admin': typeof AdminAdminRouteWithChildren
+  '/_admin/admin/gallery': typeof AdminAdminGalleryRoute
   '/_admin/admin/products': typeof AdminAdminProductsRoute
+  '/_admin/admin/settings': typeof AdminAdminSettingsRoute
   '/_admin/admin/styles': typeof AdminAdminStylesRoute
 }
 export interface FileRouteTypes {
@@ -145,7 +163,9 @@ export interface FileRouteTypes {
     | '/shop'
     | '/sitemap.xml'
     | '/admin'
+    | '/admin/gallery'
     | '/admin/products'
+    | '/admin/settings'
     | '/admin/styles'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -159,7 +179,9 @@ export interface FileRouteTypes {
     | '/shop'
     | '/sitemap.xml'
     | '/admin'
+    | '/admin/gallery'
     | '/admin/products'
+    | '/admin/settings'
     | '/admin/styles'
   id:
     | '__root__'
@@ -174,7 +196,9 @@ export interface FileRouteTypes {
     | '/shop'
     | '/sitemap.xml'
     | '/_admin/admin'
+    | '/_admin/admin/gallery'
     | '/_admin/admin/products'
+    | '/_admin/admin/settings'
     | '/_admin/admin/styles'
   fileRoutesById: FileRoutesById
 }
@@ -277,6 +301,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminStylesRouteImport
       parentRoute: typeof AdminAdminRoute
     }
+    '/_admin/admin/settings': {
+      id: '/_admin/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminAdminSettingsRouteImport
+      parentRoute: typeof AdminAdminRoute
+    }
     '/_admin/admin/products': {
       id: '/_admin/admin/products'
       path: '/products'
@@ -284,16 +315,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminProductsRouteImport
       parentRoute: typeof AdminAdminRoute
     }
+    '/_admin/admin/gallery': {
+      id: '/_admin/admin/gallery'
+      path: '/gallery'
+      fullPath: '/admin/gallery'
+      preLoaderRoute: typeof AdminAdminGalleryRouteImport
+      parentRoute: typeof AdminAdminRoute
+    }
   }
 }
 
 interface AdminAdminRouteChildren {
+  AdminAdminGalleryRoute: typeof AdminAdminGalleryRoute
   AdminAdminProductsRoute: typeof AdminAdminProductsRoute
+  AdminAdminSettingsRoute: typeof AdminAdminSettingsRoute
   AdminAdminStylesRoute: typeof AdminAdminStylesRoute
 }
 
 const AdminAdminRouteChildren: AdminAdminRouteChildren = {
+  AdminAdminGalleryRoute: AdminAdminGalleryRoute,
   AdminAdminProductsRoute: AdminAdminProductsRoute,
+  AdminAdminSettingsRoute: AdminAdminSettingsRoute,
   AdminAdminStylesRoute: AdminAdminStylesRoute,
 }
 
