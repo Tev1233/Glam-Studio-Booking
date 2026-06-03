@@ -115,13 +115,24 @@
   }
 }
 
-/* Hide Lovable badge */
+/* Hide Lovable badge — robust selectors across routes */
 #lovable-badge,
 #lovable-badge-container,
-a[href*="lovable.dev"][target="_blank"][class*="badge"],
-a[aria-label*="Lovable" i][target="_blank"] {
+[id^="lovable-badge"],
+[id*="lovable-badge"],
+[class*="lovable-badge"],
+[data-lovable-badge],
+a[href*="lovable.dev"],
+a[href*="lovable.app"][target="_blank"],
+a[aria-label*="lovable" i],
+iframe[src*="lovable.dev"],
+iframe[src*="lovable.app"] {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
   pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
 }
