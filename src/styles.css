@@ -114,3 +114,14 @@
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
   }
 }
+
+/* Hide Lovable badge */
+#lovable-badge,
+#lovable-badge-container,
+a[href*="lovable.dev"][target="_blank"][class*="badge"],
+a[aria-label*="Lovable" i][target="_blank"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
