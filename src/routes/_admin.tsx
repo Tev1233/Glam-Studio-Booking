@@ -5,7 +5,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { getMyRole } from "@/lib/auth.functions";
 import { LayoutDashboard, LogOut, Package, Image as ImageIcon, Settings, ShieldCheck, Menu, X, Scissors } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/_admin")({
   beforeLoad: async ({ location }) => {
@@ -51,11 +51,14 @@ function AdminLayout() {
     );
   }
 
-  if (error || !data?.isAdmin) {
-    // Non-admin: redirect to homepage as required
-    if (typeof window !== "undefined") {
+  // Non-admin: redirect to homepage as required
+  useEffect(() => {
+    if (!isLoading && (error || !data?.isAdmin)) {
       navigate({ to: "/" });
     }
+  }, [isLoading, error, data?.isAdmin, navigate]);
+
+  if (error || !data?.isAdmin) {
     return (
       <SiteLayout>
         <section className="mx-auto max-w-md px-4 py-24 text-center">
